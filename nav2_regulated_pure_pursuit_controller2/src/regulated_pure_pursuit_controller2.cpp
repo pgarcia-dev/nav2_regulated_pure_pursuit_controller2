@@ -241,6 +241,9 @@ geometry_msgs::msg::TwistStamped RegulatedPurePursuitController2::computeVelocit
   const geometry_msgs::msg::Twist & speed,
   nav2_core::GoalChecker * goal_checker)
 {
+  ///////////////////////////
+  RCLCPP_WARN(logger_, "****** inside computeVelocityCommands");
+
   // Update for the current goal checker's state
   geometry_msgs::msg::Pose pose_tolerance;
   geometry_msgs::msg::Twist vel_tolerance;
