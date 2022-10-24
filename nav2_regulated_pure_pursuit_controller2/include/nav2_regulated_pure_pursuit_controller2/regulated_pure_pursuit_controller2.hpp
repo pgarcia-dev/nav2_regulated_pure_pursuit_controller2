@@ -13,8 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef NAV2_REGULATED_PURE_PURSUIT_CONTROLLER__REGULATED_PURE_PURSUIT_CONTROLLER_HPP_
-#define NAV2_REGULATED_PURE_PURSUIT_CONTROLLER__REGULATED_PURE_PURSUIT_CONTROLLER_HPP_
+#ifndef nav2_regulated_pure_pursuit_controller2__REGULATED_PURE_PURSUIT_CONTROLLER_HPP_
+#define nav2_regulated_pure_pursuit_controller2__REGULATED_PURE_PURSUIT_CONTROLLER_HPP_
 
 #include <string>
 #include <vector>
@@ -29,25 +29,25 @@
 #include "nav2_util/geometry_utils.hpp"
 #include "geometry_msgs/msg/pose2_d.hpp"
 
-namespace nav2_regulated_pure_pursuit_controller
+namespace nav2_regulated_pure_pursuit_controller2
 {
 
 /**
- * @class nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
+ * @class nav2_regulated_pure_pursuit_controller2::RegulatedPurePursuitController2
  * @brief Regulated pure pursuit controller plugin
  */
-class RegulatedPurePursuitController : public nav2_core::Controller
+class RegulatedPurePursuitController2 : public nav2_core::Controller
 {
 public:
   /**
-   * @brief Constructor for nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
+   * @brief Constructor for nav2_regulated_pure_pursuit_controller2::RegulatedPurePursuitController2
    */
-  RegulatedPurePursuitController() = default;
+  RegulatedPurePursuitController2() = default;
 
   /**
-   * @brief Destrructor for nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
+   * @brief Destrructor for nav2_regulated_pure_pursuit_controller2::RegulatedPurePursuitController2
    */
-  ~RegulatedPurePursuitController() override = default;
+  ~RegulatedPurePursuitController2() override = default;
 
   /**
    * @brief Configure controller state machine
@@ -232,7 +232,7 @@ protected:
   std::string plugin_name_;
   std::shared_ptr<nav2_costmap_2d::Costmap2DROS> costmap_ros_;
   nav2_costmap_2d::Costmap2D * costmap_;
-  rclcpp::Logger logger_ {rclcpp::get_logger("RegulatedPurePursuitController")};
+  rclcpp::Logger logger_ {rclcpp::get_logger("RegulatedPurePursuitController2")};
   rclcpp::Clock::SharedPtr clock_;
 
   double desired_linear_vel_, base_desired_linear_vel_;
@@ -267,6 +267,6 @@ protected:
   std::shared_ptr<rclcpp_lifecycle::LifecyclePublisher<nav_msgs::msg::Path>> carrot_arc_pub_;
 };
 
-}  // namespace nav2_regulated_pure_pursuit_controller
+}  // namespace nav2_regulated_pure_pursuit_controller2
 
-#endif  // NAV2_REGULATED_PURE_PURSUIT_CONTROLLER__REGULATED_PURE_PURSUIT_CONTROLLER_HPP_
+#endif  // nav2_regulated_pure_pursuit_controller2__REGULATED_PURE_PURSUIT_CONTROLLER_HPP_

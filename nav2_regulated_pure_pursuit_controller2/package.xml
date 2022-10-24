@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>nav2_regulated_pure_pursuit_controller</name>
+  <name>nav2_regulated_pure_pursuit_controller2</name>
   <version>1.0.12</version>
-  <description>Regulated Pure Pursuit Controller</description>
+  <description>Regulated Pure Pursuit Controller2</description>
   <maintainer email="stevenmacenski@gmail.com">Steve Macenski</maintainer>
   <maintainer email="shrijitsingh99@gmail.com">Shrijit Singh</maintainer>
   <license>Apache-2.0</license>
@@ -26,7 +26,7 @@
 
   <export>
     <build_type>ament_cmake</build_type>
-    <nav2_core plugin="${prefix}/nav2_regulated_pure_pursuit_controller.xml" />
+    <nav2_core plugin="${prefix}/nav2_regulated_pure_pursuit_controller2.xml" />
   </export>
 
 </package>
