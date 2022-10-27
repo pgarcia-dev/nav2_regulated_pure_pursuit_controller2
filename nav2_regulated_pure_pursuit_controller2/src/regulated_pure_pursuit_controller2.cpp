@@ -54,6 +54,7 @@ void RegulatedPurePursuitController2::configure(
   plugin_name_ = name;
   logger_ = node->get_logger();
   clock_ = node->get_clock();
+  dirtyCount_ = 0;
 
   double transform_tolerance = 0.1;
   double control_frequency = 20.0;
@@ -242,7 +243,9 @@ geometry_msgs::msg::TwistStamped RegulatedPurePursuitController2::computeVelocit
   nav2_core::GoalChecker * goal_checker)
 {
   ///////////////////////////
-  RCLCPP_WARN(logger_, "****** inside computeVelocityCommands");
+  dirtyCount_++;
+  //RCLCPP_WARN(logger_, "****** inside computeVelocityCommands %d", dirtyCount_);
+
 
   // Update for the current goal checker's state
   geometry_msgs::msg::Pose pose_tolerance;
@@ -258,6 +261,7 @@ geometry_msgs::msg::TwistStamped RegulatedPurePursuitController2::computeVelocit
 
   // Find look ahead distance and point on path and publish
   double lookahead_dist = getLookAheadDistance(speed);
+
 
   // Check for reverse driving
   if (allow_reversing_) {
@@ -317,11 +321,31 @@ geometry_msgs::msg::TwistStamped RegulatedPurePursuitController2::computeVelocit
     throw nav2_core::PlannerException("RegulatedPurePursuitController2 detected collision ahead!");
   }
 
+  //************************
+
   // populate and return message
   geometry_msgs::msg::TwistStamped cmd_vel;
   cmd_vel.header = pose.header;
-  cmd_vel.twist.linear.x = linear_vel;
-  cmd_vel.twist.angular.z = angular_vel;
+  
+  if (dirtyCount_>400) {
+    cmd_vel.twist.linear.x = 0.1;
+    cmd_vel.twist.angular.z = 0.1;
+  } else if (dirtyCount_>300) {
+    cmd_vel.twist.linear.x = 0;
+    cmd_vel.twist.angular.z = 0.5;
+  } else if (dirtyCount_>200) {
+    cmd_vel.twist.linear.x = 0;
+    cmd_vel.twist.angular.z = 0;
+  } else if (dirtyCount_>100) {
+    cmd_vel.twist.linear.x = 0.1;
+    cmd_vel.twist.angular.z = 0;
+  } else {
+    cmd_vel.twist.linear.x = 0;
+    cmd_vel.twist.angular.z = 0;
+  }
+  
+  RCLCPP_WARN(logger_, "*** count %d", dirtyCount_);
+  
   return cmd_vel;
 }
 
